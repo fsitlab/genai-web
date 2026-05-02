@@ -153,14 +153,14 @@ export const stackInputSchema = z
     allowedCountryCodes: z.array(z.string()).nullish(),
 
     // Custom Domain
-    useHostedZone: z.boolean().default(false),
+    useHostedZone: z.boolean().default(true),
     hostName: z.string().nullish(),
     domainName: z.string().nullish(),
     hostedZoneId: z.string().nullish(),
     certificateArn: z.string().nullish(),
 
     // Dashboard
-    dashboard: z.boolean().default(false),
+    dashboard: z.boolean().default(true),
     // Shared VPC for invokeExApp
     vpcIdForInvokeExApp: z.string().default(''),
     // Log
