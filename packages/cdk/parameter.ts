@@ -1,5 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { preprocessContextValues, StackInput, stackInputSchema } from './lib/stack-input';
+import { selfHostingExpParams } from "./env-parameters/self-hosting-exp";
+
 
 // CDK Context からパラメータを取得する場合
 const getContext = (app: cdk.App): StackInput => {
@@ -24,6 +26,7 @@ const deploy_envs: Record<string, Partial<StackInput>> = {
   //   ],
   // },
   // 他環境も必要に応じて定義を追加可能
+  "-exp": selfHostingExpParams,
 };
 
 // 後方互換性のため、CDK Context > parameter.ts の順でパラメータを取得する
