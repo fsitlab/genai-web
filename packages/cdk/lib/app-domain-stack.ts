@@ -37,9 +37,9 @@ export class AppDomainStack extends Stack {
       }
 
       // fsitalb.comのHostedZoneをホストゾーンID無しで取得
-      if (!this.hostedZone && !hostedZoneId && domainName === 'fsitlab.com') {
+      if (!this.hostedZone && !hostedZoneId && domainName) {
              this.hostedZone = HostedZone.fromLookup(this, 'HostedZone', {
-            domainName: domainName,
+             domainName: domainName,
       });
       }
 
