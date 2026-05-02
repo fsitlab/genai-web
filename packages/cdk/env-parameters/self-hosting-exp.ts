@@ -158,6 +158,7 @@ export const selfHostingExpParams: Partial<StackInput> = {
   // カスタムドメイン設定
   // ============================================================================
 
+  usehostedZone: true, // Hosted Zone を使用するかどうか。true の場合、hostedZoneId または domainName のいずれかが必要
   /**
    * ホスト名
    * 条件付き必須: カスタムドメインを使用する場合
