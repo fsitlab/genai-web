@@ -12,13 +12,13 @@ export const Logo = (props: Props) => {
   return (
     <div className='relative flex flex-col gap-1 lg:flex-row lg:items-center lg:gap-4'>
       {isLandingPage ? (
-        <h1 className={`${logoTypographyStyles}`}>ここにロゴが入る</h1>
+        <h1 className={`${logoTypographyStyles}`}>源内 by fsitlab</h1>
       ) : (
         <Link
           to='/'
           className={`${logoTypographyStyles} focus-visible:rounded-4 focus-visible:bg-yellow-300 focus-visible:ring-[calc(2/16*1rem)] focus-visible:ring-yellow-300 focus-visible:outline-4 focus-visible:outline-offset-[calc(2/16*1rem)] focus-visible:outline-black focus-visible:outline-solid`}
         >
-          ここにロゴが入る
+          源内 by fsitlab
         </Link>
       )}
     </div>
