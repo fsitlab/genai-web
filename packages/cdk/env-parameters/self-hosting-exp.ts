@@ -202,6 +202,17 @@ export const selfHostingExpParams: Partial<StackInput> = {
    */
   // vpcIdForInvokeExApp: 'vpc-0123456789abcdef0',
 
+  /**
+   * 外部アプリ起動用 Lambda の VPC 無効化（サーバレスモード）
+   * オプション、デフォルト false
+   * true にすると VPC/NAT Gateway/EIP/VPC Endpoint を一切作成せず、
+   * Lambda を VPC 外で動作させてコスト削減する（月 $85 程度の削減）。
+   * true の場合、vpcIdForInvokeExApp は無視される。
+   * 送信元 IP は AWS の動的プールから払い出されるため、
+   * 外部アプリ側で IP allowlist による絞り込みは利用不可となる。
+   */
+  disableExAppVpc: true,
+
   // ============================================================================
   // フロントエンド設定
   // ============================================================================
