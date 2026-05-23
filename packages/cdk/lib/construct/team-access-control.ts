@@ -46,6 +46,7 @@ interface TeamAccessControlProps {
   identityPoolId: string;
   allowedSignUpEmailDomains: string[] | null | undefined;
   vpcId: string | undefined;
+  disableExAppVpc: boolean;
   logLevel: StackInput['logLevel'];
   exAppInvokeTimeoutSeconds: number;
   s3FileExpirationDays: number;
@@ -376,8 +377,11 @@ export class TeamAccessControl extends Construct {
 
     // VPC For POST /exapps/{id}
 
-    let vpcForLambda: IVpc;
-    if (props.vpcId && props.vpcId !== '') {
+    let vpcForLambda: IVpc | undefined;
+    if (props.disableExAppVpc) {
+      // VPC無効モード（サーバレス）: NAT/EIP/VPCEを作らない
+      vpcForLambda = undefined;
+    } else if (props.vpcId && props.vpcId !== '') {
       // 既存VPCを使用
       vpcForLambda = Vpc.fromLookup(this, 'LookupExistingVpc', {
         vpcId: props.vpcId,
@@ -439,9 +443,9 @@ export class TeamAccessControl extends Construct {
       entry: './lambda/pollExAppStatus.ts',
       timeout: Duration.seconds(15),
       vpc: vpcForLambda,
-      vpcSubnets: {
-        subnetType: SubnetType.PRIVATE_WITH_EGRESS,
-      },
+      vpcSubnets: vpcForLambda
+        ? { subnetType: SubnetType.PRIVATE_WITH_EGRESS }
+        : undefined,
       environment: {
         TABLE_NAME: table.tableName,
         INVOKE_HISTORY_TABLE_NAME: invokeExAppHistoryTable.tableName,
@@ -494,9 +498,9 @@ export class TeamAccessControl extends Construct {
       entry: './lambda/invokeExApp.ts',
       timeout: Duration.seconds(props.exAppInvokeTimeoutSeconds),
       vpc: vpcForLambda,
-      vpcSubnets: {
-        subnetType: SubnetType.PRIVATE_WITH_EGRESS,
-      },
+      vpcSubnets: vpcForLambda
+        ? { subnetType: SubnetType.PRIVATE_WITH_EGRESS }
+        : undefined,
       environment: {
         TABLE_NAME: table.tableName,
         EXAPP_TABLE_NAME: exAppTable.tableName,

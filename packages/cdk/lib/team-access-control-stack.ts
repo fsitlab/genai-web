@@ -19,6 +19,7 @@ interface TeamAccessControlStackProps extends NestedStackProps {
   userPool: cognito.UserPool;
   identityPoolId: string;
   vpcId: string | undefined;
+  disableExAppVpc: boolean;
   logLevel: StackInput['logLevel'];
   exAppInvokeTimeoutSeconds: number;
   s3FileExpirationDays: number;
@@ -46,6 +47,7 @@ export class TeamAccessControlStack extends NestedStack {
       identityPoolId: props.identityPoolId,
       allowedSignUpEmailDomains,
       vpcId: props.vpcId,
+      disableExAppVpc: props.disableExAppVpc,
       logLevel: props.logLevel,
       exAppInvokeTimeoutSeconds: props.exAppInvokeTimeoutSeconds,
       s3FileExpirationDays: props.s3FileExpirationDays,

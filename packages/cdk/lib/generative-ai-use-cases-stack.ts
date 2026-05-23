@@ -142,6 +142,7 @@ export class GenerativeAiUseCasesStack extends Stack {
       userPool: auth.userPool,
       identityPoolId: auth.idPool.ref,
       vpcId: params.vpcIdForInvokeExApp,
+      disableExAppVpc: params.disableExAppVpc,
       logLevel: params.logLevel,
       exAppInvokeTimeoutSeconds: params.exAppInvokeTimeoutSeconds,
       s3FileExpirationDays: params.dataRetentionDays.s3FileExpiration,
