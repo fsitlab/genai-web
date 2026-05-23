@@ -163,6 +163,9 @@ export const stackInputSchema = z
     dashboard: z.boolean().default(false),
     // Shared VPC for invokeExApp
     vpcIdForInvokeExApp: z.string().default(''),
+    // Disable VPC for invokeExApp Lambdas (serverless mode, no NAT/EIP/VPCE).
+    // When true, vpcIdForInvokeExApp is ignored and Lambdas run outside a VPC.
+    disableExAppVpc: z.boolean().default(false),
     // Log
     destination: z // ログ収集システムのログ送信先
       .object({
